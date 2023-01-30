@@ -2,7 +2,7 @@
    <div class="container">
        <div class="github-log-con">
            <img src="@sicons/ionicons5/LogoGithub.svg" class="github-logo"/>
-           <div>Github issues collector</div>
+           <div>Github Issues Collector</div>
        </div>
        <div class="menu-item" @click="toRepositories">
            Repositories
