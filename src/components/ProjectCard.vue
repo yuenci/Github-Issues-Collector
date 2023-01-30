@@ -1,5 +1,5 @@
 <template lang="">
-    <div class="container">{{title}}</div>
+    <div class="project-con">{{title}}</div>
 </template>
 
 <script>
