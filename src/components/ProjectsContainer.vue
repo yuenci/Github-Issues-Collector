@@ -1,29 +1,30 @@
 <template lang="">
     <div class="projects-container">
-        <div class="project-con" @click="showModal = true">
+        <div class="project-con" @click="dialogVisible = true">
             <img src="@sicons/ionicons5/AddCircleOutline.svg" class="add-icon"/>
         </div>
-        <ProjectCard title="Project 1" />
+        <ProjectCard v-for="project in projectsObj"  :title="project.title" :key="project.index"/>
+
     </div>
-    <n-modal
-    v-model:show="showModal"
-    :mask-closable="false"
-    preset="dialog"
+    <el-dialog
+    v-model="dialogVisible"
     title="Enter project's link"
-    positive-text="OK"
-    negative-text="Cancel"
-    @positive-click="onPositiveClick"
-    @negative-click="onNegativeClick"
     >
-    <n-message-provider>
-         <n-input type="text" clearable :on-change="inputChange" />
-    </n-message-provider>
-    </n-modal>
+    <el-input v-model="projectLink" placeholder="Please input" clearable />
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="dialogVisible = false">Cancel</el-button>
+        <el-button type="primary" @click="onPositiveClick">
+          Confirm
+        </el-button>
+      </span>
+    </template>
+  </el-dialog>
 </template>
 <script>
 import ProjectCard from "./ProjectCard.vue";
-import { useMessage } from "naive-ui";
-import { validEmail } from "../tools.js";
+import { validLink, initGithub } from "../tools.js";
+import { ElMessage } from "element-plus";
 
 
 export default {
@@ -34,46 +35,71 @@ export default {
 
     data() {
         return {
-            message: useMessage(),
-            issues: [],
-            showModal: false,
+            userName: "",
+            projects: [],
+            dialogVisible: false,
             projectLink: "",
         };
 
     },
+    computed: {
+        projectName() {
+            return this.projectLink.split("/")[4];
+        },
+        projectsObj() {
+            return this.projects.map((project, index) => {
+                return {
+                    title: project,
+                    index: index,
+                };
+            });
+        }
+    },
 
     methods: {
-        async getProject() {
+        getProject() {
             const projects = localStorage.getItem("projects");
             if (projects) {
-                this.issues = JSON.parse(projects);
+                this.projects = JSON.parse(projects);
             } else {
                 let projects = [];
                 localStorage.setItem("projects", JSON.stringify(projects));
             }
         },
         onNegativeClick() {
-            this.showModal = false;
+            this.dialogVisible = false;
         },
         onPositiveClick() {
-            if (validEmail(this.projectLink)) {
-                this.showModal = false;
+            if (validLink(this.projectLink)) {
+                this.dialogVisible = false;
+                //console.log(this.projectName);
+                this.addProject(this.projectName);
             } else {
-                // message.warning("Invalid link");
                 this.warning();
             }
-            console.log(this.projectLink);
         },
         inputChange(value) {
             this.projectLink = value;
         },
         warning() {
-            message.warning("How many roads must a man walk down");
+            ElMessage({
+                message: 'Invalid link',
+                type: 'warning',
+            })
         },
+        addProject(project) {
+            this.projects.push(project);
+            localStorage.setItem("projects", JSON.stringify(this.projects));
+        }
     },
 
     mounted() {
-        this.getProject();
+        initGithub().then((userName) => {
+            this.userName = userName;
+            this.getProject();
+        }).catch(() => {
+            console.log("Github not initialized");
+        });
     },
 }
 </script>

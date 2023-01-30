@@ -2,7 +2,6 @@
 import { defineComponent } from "vue";
 import Menu from "./components/Menu.vue";
 import CardContainer from "./components/ProjectsContainer.vue";
-import { darkTheme } from 'naive-ui'
 
 
 export default defineComponent({
@@ -10,20 +9,13 @@ export default defineComponent({
     Menu,
     CardContainer,
   },
-  data() {
-    return {
-      darkTheme: darkTheme
-    }
-  }
 });
 
 </script>
 
 <template>
-  <n-config-provider :theme="darkTheme">
-    <Menu />
-    <CardContainer />
-  </n-config-provider>
+  <Menu />
+  <CardContainer />
 </template>
 
 <style scoped>

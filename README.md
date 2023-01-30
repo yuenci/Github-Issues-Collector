@@ -61,6 +61,15 @@ async function loopAllQS() {
     }
   }
 }
+
+//retrieve all items
+const issues = await octokit.paginate(octokit.rest.issues.listForRepo, {
+  owner: "octocat",
+  repo: "hello-world",
+  per_page: 100,
+});
+
+
 ```
 
 # UI
