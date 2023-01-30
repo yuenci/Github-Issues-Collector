@@ -1,5 +1,5 @@
 <template lang="">
-    <div class="project-con">{{title}}</div>
+    <div class="project-con" @click="toIssues">{{title}}</div>
 </template>
 
 <script>
@@ -9,7 +9,12 @@ export default {
             type: String,
             required: true
         },
-    }
+    },
+    methods: {
+        toIssues() {
+            this.$router.push(`/issues/${this.title}`);
+        },
+    },
 }
 </script>
 

@@ -21,6 +21,13 @@
     v-model="dialogVisible"
     title="Enter your token"
     >
+    <template #header>
+      <div class="dialog-header">
+        <span>Enter your token</span>
+        <img src="@sicons/ionicons5/InformationCircle.svg" class="info-icon" @click="toGithubToken" />
+      </div>
+
+    </template>
     <el-input v-model="token"  clearable />
     <template #footer>
       <span class="dialog-footer">
@@ -52,6 +59,10 @@ export default {
 
         toSettings() {
             this.$router.push("/settings");
+        },
+
+        toGithubToken() {
+            window.open("https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token");
         },
 
         setToken() {
@@ -109,6 +120,24 @@ export default {
     flex-direction: row;
     align-items: center;
     user-select: none;
+}
+
+.dialog-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.info-icon {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.info-icon path {
+    fill: #868e96;
 }
 </style>
 
