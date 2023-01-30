@@ -1,8 +1,20 @@
-<script setup>
+<script>
+import { defineComponent } from "vue";
+import Menu from "./components/Menu.vue";
+import CardContainer from "./components/CardContainer.vue";
+
+export default defineComponent({
+  components: {
+    Menu,
+    CardContainer,
+  },
+});
+
 </script>
 
 <template>
-  <div>Hello</div>
+  <Menu />
+  <CardContainer />
 </template>
 
 <style scoped>

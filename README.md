@@ -77,6 +77,7 @@ $npm i -D vfonts
 import naive from "naive-ui";
 const app = createApp(App);
 app.use(naive);
+app.mount('#app');
 
 ```
 
@@ -109,8 +110,8 @@ https://github.com/07akioni/xicons/blob/main/README.zh-CN.md
 
 否则的话就要使用组件套组件方式才可以正常渲染
 
-```
-npm i -D @sicons/ionicons5
+```bash
+$npm i -D @sicons/ionicons5
 ```
 
 # router
