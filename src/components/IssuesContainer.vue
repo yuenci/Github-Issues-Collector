@@ -53,7 +53,7 @@ export default {
                 repo: "Roommate-Finder",
                 per_page: 100,
             });
-            console.log(this.issues);
+            //console.log(this.issues);
         },
     },
 

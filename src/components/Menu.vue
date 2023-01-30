@@ -1,6 +1,6 @@
 <template lang="">
    <div class="container">
-       <div class="github-log-con">
+       <div class="github-log-con" @click="toGithub">
            <img src="@sicons/ionicons5/LogoGithub.svg" class="github-logo"/>
            <div>Github Issues Collector</div>
        </div>
@@ -49,6 +49,10 @@ export default {
         };
     },
     methods: {
+        toGithub() {
+            window.open("https://github.com/");
+        },
+
         toRepositories() {
             this.$router.push("/repos");
         },
@@ -120,6 +124,7 @@ export default {
     flex-direction: row;
     align-items: center;
     user-select: none;
+    cursor: pointer;
 }
 
 .dialog-header {
