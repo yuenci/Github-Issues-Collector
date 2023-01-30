@@ -65,6 +65,10 @@ async function loopAllQS() {
 
 # UI
 
+### naive ui 
+
+api 设计的有点烂
+
 ```bash
 $npm i -D naive-ui
 ```
@@ -82,6 +86,31 @@ app.mount('#app');
 ```
 
 https://www.naiveui.com/zh-CN/os-theme/components/button
+
+
+### element
+
+```
+npm install element-plus --save
+
+yarn add element-plus
+```
+
+```js
+
+import { createApp } from 'vue'
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
+import App from './App.vue'
+
+const app = createApp(App)
+
+app.use(ElementPlus)
+app.mount('#app')
+```
+
+
+
 
 ### icon
 

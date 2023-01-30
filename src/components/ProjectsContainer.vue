@@ -1,26 +1,45 @@
 <template lang="">
     <div class="projects-container">
-        <div class="project-con">
+        <div class="project-con" @click="showModal = true">
             <img src="@sicons/ionicons5/AddCircleOutline.svg" class="add-icon"/>
         </div>
         <ProjectCard title="Project 1" />
     </div>
+    <n-modal
+    v-model:show="showModal"
+    :mask-closable="false"
+    preset="dialog"
+    title="Enter project's link"
+    positive-text="OK"
+    negative-text="Cancel"
+    @positive-click="onPositiveClick"
+    @negative-click="onNegativeClick"
+    >
+    <n-message-provider>
+         <n-input type="text" clearable :on-change="inputChange" />
+    </n-message-provider>
+    </n-modal>
 </template>
 <script>
 import ProjectCard from "./ProjectCard.vue";
-import token from "../config";
-import { Octokit, App } from "https://cdn.skypack.dev/octokit";
+import { useMessage } from "naive-ui";
+import { validEmail } from "../tools.js";
 
 
 export default {
+
     components: {
         ProjectCard,
     },
 
     data() {
         return {
+            message: useMessage(),
             issues: [],
+            showModal: false,
+            projectLink: "",
         };
+
     },
 
     methods: {
@@ -32,7 +51,25 @@ export default {
                 let projects = [];
                 localStorage.setItem("projects", JSON.stringify(projects));
             }
-        }
+        },
+        onNegativeClick() {
+            this.showModal = false;
+        },
+        onPositiveClick() {
+            if (validEmail(this.projectLink)) {
+                this.showModal = false;
+            } else {
+                // message.warning("Invalid link");
+                this.warning();
+            }
+            console.log(this.projectLink);
+        },
+        inputChange(value) {
+            this.projectLink = value;
+        },
+        warning() {
+            message.warning("How many roads must a man walk down");
+        },
     },
 
     mounted() {
