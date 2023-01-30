@@ -4,24 +4,65 @@
            <img src="@sicons/ionicons5/LogoGithub.svg" class="github-logo"/>
            <div>Github issues collector</div>
        </div>
-       <div class="menu-item">
+       <div class="menu-item" @click="toRepositories">
            Repositories
        </div>
-       <div class="menu-item">
+       <div class="menu-item" @click="toIssues">
            Issues
        </div>
-       <div class="menu-item">
+       <div class="menu-item" @click="toSettings">
            Settings
        </div>
-       <div class="menu-item">
+       <div class="menu-item" @click="setToken">
            Set Token
        </div>
    </div>
+   <el-dialog
+    v-model="dialogVisible"
+    title="Enter your token"
+    >
+    <el-input v-model="token"  clearable />
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="dialogVisible = false">Cancel</el-button>
+        <el-button type="primary" @click="saveToken">
+          Confirm
+        </el-button>
+      </span>
+    </template>
+  </el-dialog>
 </template>
 
 <script>
 export default {
+    data() {
+        return {
+            dialogVisible: false,
+            token: "",
+        };
+    },
+    methods: {
+        toRepositories() {
+            this.$router.push("/repos");
+        },
 
+        toIssues() {
+            this.$router.push("/issues");
+        },
+
+        toSettings() {
+            this.$router.push("/settings");
+        },
+
+        setToken() {
+            this.dialogVisible = true;
+        },
+
+        saveToken() {
+            localStorage.setItem("token", this.token);
+            this.dialogVisible = false;
+        },
+    },
 }
 </script>
 

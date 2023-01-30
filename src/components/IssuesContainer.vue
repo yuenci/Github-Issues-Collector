@@ -1,6 +1,6 @@
 <template lang="">
     <div >
-        <ProjectCard title="Project 1" />
+        hello issues!
     </div>
 </template>
 <script>
