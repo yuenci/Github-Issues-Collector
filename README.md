@@ -1,165 +1,86 @@
-```js
-import { Octokit, App } from "octokit";
-// nodojs
+`<a name="readme-top"></a>`
 
-import { Octokit, App } from "https://cdn.skypack.dev/octokit";
-// frontend
+# Github Issues Collector
 
-```
+## 💻 Prerequisites
 
-https://github.com/octokit/octokit.js
+Before you begin, make sure that you have met the following requirements:
 
-https://octokit.github.io/rest.js/v19
+<!---These are just example requirements. Add, duplicate or remove as needed--->
 
-Github 官方库，用来操作Github
+* You have installed the latest version of nodejs
+* You have installed the latest version of Yarn
 
-获取令牌
+## 🚀 Installing
 
-https://docs.github.com/zh/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
+To install this project, follow these steps:
 
-https://github.com/settings/tokens
-
-![1675049979743](image/README/1675049979743.png)
-
-fine-grained personal access token
-
-只能访问特定储存库，而且可以设置权限，而且有到期日比较安全，但权限低
-
-### api
-
-https://docs.github.com/zh/rest/guides/getting-started-with-the-rest-api?apiVersion=2022-11-28
-
-### token
-
-```
-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
-```
-
-### demo
-
-```js
-async function loginToGithub() {
-  // Create a personal access token at https://github.com/settings/tokens/new?scopes=repo
-  const octokit = new Octokit({ auth: token });
-
-  // Compare: https://docs.github.com/en/rest/reference/users#get-the-authenticated-user
-  const {
-    data: { login },
-  } = await octokit.rest.users.getAuthenticated();
-  console.log("Hello, %s", login);
-}
-
-async function loopAllQS() {
-  const octokit = new Octokit({ auth: token });
-
-  const iterator = octokit.paginate.iterator(octokit.rest.issues.listForRepo, {
-    owner: "yuenci",
-    repo: "Roommate-Finder",
-    per_page: 100,
-  });
-
-  // iterate through each response
-  for await (const { data: issues } of iterator) {
-    for (const issue of issues) {
-      console.log("Issue #%d: %s", issue.number, issue.title);
-    }
-  }
-}
-
-//retrieve all items
-const issues = await octokit.paginate(octokit.rest.issues.listForRepo, {
-  owner: "octocat",
-  repo: "hello-world",
-  per_page: 100,
-});
-
-
-```
-
-# UI
-
-### naive ui
-
-api 设计的有点烂
+1. Clone repo
 
 ```bash
-$npm i -D naive-ui
+$ git clone https://github.com/yuenci/Github-Issues-Collector
 ```
+
+2. Install dependencies
 
 ```bash
-$npm i -D vfonts
+$ yarn
 ```
 
-```js
-import naive from "naive-ui";
-const app = createApp(App);
-app.use(naive);
-app.mount('#app');
-
-```
-
-https://www.naiveui.com/zh-CN/os-theme/components/button
-
-### element
-
-```
-npm install element-plus --save
-
-yarn add element-plus
-```
-
-```js
-
-import { createApp } from 'vue'
-import ElementPlus from 'element-plus'
-import 'element-plus/dist/index.css'
-import App from './App.vue'
-
-const app = createApp(App)
-
-app.use(ElementPlus)
-app.mount('#app')
-```
-
-### icon
+3. Start project
 
 ```bash
-# 使用 SVG
-npm i -D @sicons/fluent
-npm i -D @sicons/ionicons4
-npm i -D @sicons/ionicons5
-npm i -D @sicons/antd
-npm i -D @sicons/material
-npm i -D @sicons/fa # font awesome
-npm i -D @sicons/tabler
-npm i -D @sicons/carbon
+yarn dev
 ```
 
-https://www.xicons.org/#/
+## ☕ Usecase
 
-https://github.com/07akioni/xicons/blob/main/README.zh-CN.md
+To use this project, follow these steps:
 
-使用svg语法来作为图像引入是最简单的
+1. Set token
+   1.1 Go to https://github.com/settings/tokens?type=beta
 
-```bash
-<img src="@sicons/ionicons5/Money16Regular.svg" /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>
+   1.2 Set token's name and Repo's access
+   ![1675147830919](image/README/1675147830919.png)
 
-```
+   1.3 Set issues permissions
+   ![1675147862843](image/README/1675147862843.png)
 
-否则的话就要使用组件套组件方式才可以正常渲染
+   1.4 Generate token
+   ![1675147883613](image/README/1675147883613.png)
 
-```bash
-$npm i -D @sicons/ionicons5
-```
+   1.5 Input token
+   ![](image/README//setToken.gif)
+2. Add repo and view issues
+    ![](image/README/addRepo.gif)
+3. Go to github for more operation
+    ![](image/README/goToGithub.gif)
+## 📫 Contributing
 
-# router
+To contribute this project, follow these steps:
 
-```bash
-$npm install vue-router@4
-```
+1. Fork this repository.
+2. Crie um branch: `git checkout -b <some_branch>`
+3. Make your changes and confirm them: `git commit -m <message_commit>`
+4. Push to the original branch: `git push origin <peoject_name> / <local>`
+5. Create the pull request.
 
+Alternatively, see the GitHub documentation on how to [create a pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
 
-* [ ] display body image
-* [X] go to comment
-* [X] show loading
-* [X] order the issues
+## 🤝 Collaborations
+
+<a href="https://github.com/yuenci" target="_blank" >
+  <img src="https://github.com/yuenci/Laptop-Repair-Services-Management-System/blob/master/image/avatar-innis.png" alt="profile image" width="60px">
+</a>
+
+Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+
+## 😄 Be one of the contributors
+
+Want to be part of this project? Click HERE and read how to contribute.
+
+## 📝 License
+
+This project is under license. See the [LICENSE](./LICENSE) file for more details.
+
+<p >(<a href="#readme-top">⬆ Back to top</a>)</p>
