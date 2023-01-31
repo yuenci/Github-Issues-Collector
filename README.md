@@ -1,4 +1,4 @@
-`<a name="readme-top"></a>`
+<a name="readme-top"></a>
 
 # Github Issues Collector
 
@@ -30,14 +30,15 @@ $ yarn
 3. Start project
 
 ```bash
-yarn dev
+$ yarn dev
 ```
 
 ## ☕ Usecase
 
 To use this project, follow these steps:
 
-1. Set token
+#### 1. Set token
+
    1.1 Go to https://github.com/settings/tokens?type=beta
 
    1.2 Set token's name and Repo's access
@@ -51,9 +52,9 @@ To use this project, follow these steps:
 
    1.5 Input token
    ![](image/README//setToken.gif)
-2. Add repo and view issues
+#### 2. Add repo and view issues
     ![](image/README/addRepo.gif)
-3. Go to github for more operation
+#### 3. Go to github for more operation
     ![](image/README/goToGithub.gif)
 ## 📫 Contributing
 
