@@ -12,15 +12,16 @@ import SettingsContainer from './components/SettingsContainer.vue'
 const app = createApp(App)
 
 const routes = [
+    { path: '/', component: ProjectsContainer },
     { path: '/repos', component: ProjectsContainer },
+    { path: '/issues/:repo', component: IssuesContainer },
     { path: '/issues', component: IssuesContainer },
     { path: '/settings', component: SettingsContainer },
 ]
 
 const router = VueRouter.createRouter({
-    // 4. 内部提供了 history 模式的实现。为了简单起见，我们在这里使用 hash 模式。
     history: VueRouter.createWebHistory(),
-    routes, // `routes: routes` 的缩写
+    routes,
 })
 
 app.use(router)

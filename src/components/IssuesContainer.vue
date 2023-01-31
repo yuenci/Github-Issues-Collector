@@ -1,7 +1,7 @@
 <template lang="">
-    <el-table :data="tableData" stripe style="width: 100%">
+    <el-table :data="formatTableData" stripe style="width: 100%">
         <el-table-column prop="date" label="Date" width="180" />
-        <el-table-column prop="name" label="Name" width="180" />
+        <el-table-column prop="name" label="Name" width="300" />
         <el-table-column prop="address" label="Address" />
     </el-table>
 </template>
@@ -19,6 +19,7 @@ export default {
 
     data() {
         return {
+            repo: "",
             issues: {},
             tableData: [
                 {
@@ -44,20 +45,43 @@ export default {
             ],
         };
     },
+    computed: {
+        formatTableData: function () {
+            let formatTableData = [];
+            for (let i = 0; i < this.issues.length; i++) {
+                formatTableData.push({
+                    date: this.issues[i].created_at,
+                    name: this.issues[i].title,
+                    address: this.issues[i].body,
+                });
+            }
+            return formatTableData;
+        }
+    },
 
     methods: {
         async getIssues() {
             const octokit = new Octokit({ auth: token });
+            if (this.repo == null) return;
             this.issues = await octokit.paginate(octokit.rest.issues.listForRepo, {
                 owner: "yuenci",
-                repo: "Roommate-Finder",
+                repo: this.repo,
                 per_page: 100,
             });
-            //console.log(this.issues);
+            console.log(this.issues);
+        },
+        getRepoName() {
+            let repo = this.$route.params.repo;
+            if (repo) {
+                this.repo = repo;
+            } else {
+                this.repo = null;
+            }
         },
     },
 
     mounted() {
+        this.getRepoName();
         this.getIssues();
     },
 }

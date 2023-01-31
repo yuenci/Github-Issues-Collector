@@ -74,6 +74,7 @@ export default {
                 this.dialogVisible = false;
                 //console.log(this.projectName);
                 this.addProject(this.projectName);
+                this.projectLink = "";
             } else {
                 this.warning();
             }
