@@ -1,17 +1,17 @@
 <template lang="">
     <div v-if="this.repo">
         <el-table :data="formatTableData" stripe style="width: 100%" v-loading="!issues" @row-click="goToIssue">
-            <el-table-column prop="date" label="Date" width="180" sortable :formatter="formatter" />
-            <el-table-column prop="name" label="Issue" width="300" />
+            <el-table-column prop="date" label="Date" :width="boxWidth[0]" sortable :formatter="formatter" />
+            <el-table-column prop="name" label="Issue"  />
             <el-table-column prop="address" label="Details" />
         </el-table>
     </div>
     <div v-else>
         <el-table :data="formatTableData" stripe style="width: 100%"
             v-loading.fullscreen.lock="getAllIssuesLoading" @row-click="goToIssue">
-            <el-table-column prop="date" label="Date" width="180"  sortable  :formatter="formatter" />
+            <el-table-column prop="date" label="Date" :width="boxWidth[0]"  sortable  :formatter="formatter" />
             <el-table-column prop="repo" label="Repo" :filters="repoFilter" :filter-method="filterHandler"/>
-            <el-table-column prop="name" label="Issue" width="300" />
+            <el-table-column prop="name" label="Issue"  />
             <el-table-column prop="address" label="Details" />
         </el-table>
     </div>
@@ -70,9 +70,17 @@ export default {
                 }
             }
             return repoData;
-        }
+        },
 
-
+        boxWidth: function () {
+            // get width of screen
+            let width = window.innerWidth;
+            if (width > 800) {
+                return [180, 300]
+            } else {
+                return [110, 100]
+            }
+        },
     },
 
     methods: {
@@ -125,6 +133,8 @@ export default {
     },
 }
 </script>
-<style lang="">
-    
+<style >
+.el-backtop__icon {
+    color: black !important;
+}
 </style>

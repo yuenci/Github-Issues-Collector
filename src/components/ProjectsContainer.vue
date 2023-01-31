@@ -138,5 +138,22 @@ export default {
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    box-sizing: border-box;
+    transition: all 0.3s ease-in-out;
+    padding: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .project-con {
+        width: 200px;
+        height: 200px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .project-con {
+        width: 150px;
+        height: 150px;
+    }
 }
 </style>

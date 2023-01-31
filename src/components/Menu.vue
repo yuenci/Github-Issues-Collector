@@ -16,6 +16,19 @@
        <div class="menu-item" @click="setToken">
            Set Token
        </div>
+       <el-dropdown trigger="click">
+        <span class="el-dropdown-link">
+          <img src="@sicons/ionicons5/Menu.svg" class="menu-icon" />
+        </span>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item @click="toRepositories">Repositories</el-dropdown-item>
+            <el-dropdown-item @click="toIssues">Issues</el-dropdown-item>
+            <el-dropdown-item @click="toSettings">Settings</el-dropdown-item>
+            <el-dropdown-item @click="setToken">Set Token</el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
    </div>
    <el-dialog
     v-model="dialogVisible"
@@ -158,11 +171,29 @@ export default {
     fill: #868e96;
 }
 
+.menu-icon {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.el-dropdown {
+    display: none;
+}
 
 @media screen and (max-width: 768px) {
     .logo-text {
         display: none;
     }
+
+    .el-dropdown {
+        display: block;
+    }
+
+    .menu-item {
+        display: none;
+    }
+
 }
 </style>
 
