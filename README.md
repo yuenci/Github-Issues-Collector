@@ -51,11 +51,15 @@ To use this project, follow these steps:
    ![1675147883613](image/README/1675147883613.png)
 
    1.5 Input token
-   ![](image/README//setToken.gif)
+   ![](image/README/setToken.gif)
 #### 2. Add repo and view issues
-    ![](image/README/addRepo.gif)
+
+![](image/README/addRepo.gif)
+    
 #### 3. Go to github for more operation
-    ![](image/README/goToGithub.gif)
+
+![](image/README/goToGithub.gif)
+    
 ## 📫 Contributing
 
 To contribute this project, follow these steps:
