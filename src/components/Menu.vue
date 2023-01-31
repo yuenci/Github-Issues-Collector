@@ -2,7 +2,7 @@
    <div class="container">
        <div class="github-log-con" @click="toGithub">
            <img src="@sicons/ionicons5/LogoGithub.svg" class="github-logo"/>
-           <div>Github Issues Collector</div>
+           <div class="logo-text">Github Issues Collector</div>
        </div>
        <div class="menu-item" @click="toRepositories">
            Repositories
@@ -156,6 +156,13 @@ export default {
 
 .info-icon path {
     fill: #868e96;
+}
+
+
+@media screen and (max-width: 768px) {
+    .logo-text {
+        display: none;
+    }
 }
 </style>
 

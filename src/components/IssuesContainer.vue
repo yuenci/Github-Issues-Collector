@@ -15,6 +15,7 @@
             <el-table-column prop="address" label="Details" />
         </el-table>
     </div>
+    <el-backtop :right="50" :bottom="50" />
 </template>
 <script>
 import ProjectCard from "./ProjectCard.vue";
