@@ -7,7 +7,7 @@
         <el-tooltip
         class="box-item"
         effect="dark"
-        content="Delete Project"
+        content="Delete Repo"
         placement="top"
       >
         <img src="@sicons/ionicons5/Trash.svg" :class="deleteIconStyle" 

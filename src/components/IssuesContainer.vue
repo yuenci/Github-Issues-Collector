@@ -1,13 +1,14 @@
 <template lang="">
     <div v-if="this.repo">
-        <el-table :data="formatTableData" stripe style="width: 100%" v-loading="!issues" >
+        <el-table :data="formatTableData" stripe style="width: 100%" v-loading="!issues" @row-click="goToIssue">
             <el-table-column prop="date" label="Date" width="180" sortable :formatter="formatter" />
             <el-table-column prop="name" label="Issue" width="300" />
             <el-table-column prop="address" label="Details" />
         </el-table>
     </div>
     <div v-else>
-        <el-table :data="formatTableData" stripe style="width: 100%" v-loading.fullscreen.lock="getAllIssuesLoading" >
+        <el-table :data="formatTableData" stripe style="width: 100%"
+            v-loading.fullscreen.lock="getAllIssuesLoading" @row-click="goToIssue">
             <el-table-column prop="date" label="Date" width="180"  sortable  :formatter="formatter" />
             <el-table-column prop="repo" label="Repo" :filters="repoFilter" :filter-method="filterHandler"/>
             <el-table-column prop="name" label="Issue" width="300" />
@@ -43,6 +44,7 @@ export default {
                     name: this.issues[i].title,
                     address: this.issues[i].body,
                     repo: this.issues[i].repo,
+                    URL: this.issues[i].html_url,
                 });
             }
             return formatTableData;
@@ -105,6 +107,10 @@ export default {
         filterHandler(value, row, column) {
             const property = column['property']
             return row[property] === value
+        },
+        goToIssue(row) {
+            let url = row.URL;
+            window.open(url, '_blank');
         }
     },
 

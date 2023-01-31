@@ -41,6 +41,8 @@
 </template>
 
 <script>
+import { tokenTest, writeToken } from "../tools.js";
+import { ElMessage } from "element-plus";
 export default {
     data() {
         return {
@@ -74,8 +76,19 @@ export default {
         },
 
         saveToken() {
-            localStorage.setItem("token", this.token);
             this.dialogVisible = false;
+            tokenTest(this.token).then(() => {
+                writeToken(this.token);
+                ElMessage({
+                    message: "Token saved",
+                    type: "success",
+                })
+            }).catch((err) => {
+                ElMessage({
+                    message: "Token is invalid",
+                    type: "error",
+                });
+            });
         },
     },
 }

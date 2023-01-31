@@ -1,5 +1,5 @@
 import { Octokit, App } from "https://cdn.skypack.dev/octokit";
-import token from "./config.js";
+// import token from "./config.js";
 
 // valid github repo link, like https://github.com/yuenci/Java-Car-Rental-System
 export function validLink(link) {
@@ -9,6 +9,7 @@ export function validLink(link) {
 }
 
 export function initGithub() {
+    const token = localStorage.getItem("token");
     const octokit = new Octokit({ auth: token });
 
     return new Promise(async (resolve, reject) => {
@@ -25,6 +26,21 @@ export function initGithub() {
     });
 }
 
+export function tokenTest(tokenInput) {
+    const octokit = new Octokit({ auth: tokenInput });
+    return new Promise(async (resolve, reject) => {
+        try {
+            const {
+                data: { login },
+            } = await octokit.rest.users.getAuthenticated();
+            resolve(login);
+        }
+        catch (e) {
+            reject(e);
+        }
+    });
+}
+
 
 export function getAllRepos() {
     const projects = localStorage.getItem("projects");
@@ -36,6 +52,7 @@ export function getAllRepos() {
 }
 
 export async function getIssuesFromGithub(repo) {
+    const token = localStorage.getItem("token");
     const octokit = new Octokit({ auth: token });
     let res = await octokit.paginate(octokit.rest.issues.listForRepo, {
         owner: "yuenci",
@@ -56,3 +73,12 @@ export function formatDate(isoString) {
     const res = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
     return res;
 };
+
+
+export function writeToken(token) {
+    localStorage.setItem("token", token);
+}
+
+export function getToken() {
+    return localStorage.getItem("token");
+}
