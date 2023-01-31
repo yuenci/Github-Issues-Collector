@@ -142,7 +142,7 @@ https://github.com/07akioni/xicons/blob/main/README.zh-CN.md
 使用svg语法来作为图像引入是最简单的
 
 ```bash
-<img src="@sicons/ionicons5/Money16Regular.svg" />
+<img src="@sicons/ionicons5/Money16Regular.svg" /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>
 
 ```
 

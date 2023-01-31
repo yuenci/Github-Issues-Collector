@@ -1,7 +1,7 @@
 <template lang="">
    <div class="container">
-       <div class="github-log-con" @click="toGithub">
-           <img src="@sicons/ionicons5/LogoGithub.svg" class="github-logo"/>
+       <div class="github-log-con" >
+           <img src="@sicons/ionicons5/LogoGithub.svg" class="github-logo" @click="toGithub" />
            <div class="logo-text">Github Issues Collector</div>
        </div>
        <div class="menu-item" @click="toRepositories">
@@ -142,7 +142,7 @@ export default {
     width: 40px;
     height: 40px;
     margin-right: 10px;
-
+    cursor: pointer;
 }
 
 .github-log-con {
@@ -150,7 +150,6 @@ export default {
     flex-direction: row;
     align-items: center;
     user-select: none;
-    cursor: pointer;
 }
 
 .dialog-header {

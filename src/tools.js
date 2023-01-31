@@ -1,5 +1,5 @@
 import { Octokit, App } from "https://cdn.skypack.dev/octokit";
-// import token from "./config.js";
+import { ElMessage } from "element-plus";
 
 // valid github repo link, like https://github.com/yuenci/Java-Car-Rental-System
 export function validLink(link) {
@@ -9,7 +9,7 @@ export function validLink(link) {
 }
 
 export function initGithub() {
-    const token = localStorage.getItem("token");
+    const token = getToken();
     const octokit = new Octokit({ auth: token });
 
     return new Promise(async (resolve, reject) => {
@@ -21,6 +21,7 @@ export function initGithub() {
         }
         catch (e) {
             console.log("init github error");
+            ElMessage.error("init github error");
             reject(e);
         }
     });
@@ -52,7 +53,7 @@ export function getAllRepos() {
 }
 
 export async function getIssuesFromGithub(repo) {
-    const token = localStorage.getItem("token");
+    const token = getToken();
     const octokit = new Octokit({ auth: token });
     let res = await octokit.paginate(octokit.rest.issues.listForRepo, {
         owner: "yuenci",
@@ -80,5 +81,10 @@ export function writeToken(token) {
 }
 
 export function getToken() {
-    return localStorage.getItem("token");
+    let token = localStorage.getItem("token");
+    if (token) {
+        return token;
+    } else {
+        ElMessage.info("Welcome back, please input your github token");
+    }
 }
