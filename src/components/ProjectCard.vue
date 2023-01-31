@@ -21,6 +21,7 @@
 
 <script>
 import { ElMessageBox, ElMessage } from 'element-plus';
+import { getAllRepos } from "../tools.js";
 export default {
     props: {
         title: {
@@ -51,16 +52,22 @@ export default {
                 }
             )
                 .then(() => {
+                    let repos = getAllRepos()
+                    let newRepos = repos.filter((repo) => {
+                        return repo !== this.title;
+                    });
+                    console.log(newRepos);
+                    localStorage.setItem("projects", JSON.stringify(newRepos));
                     ElMessage({
                         type: 'success',
                         message: 'Delete completed',
                     })
                 })
                 .catch(() => {
-                    ElMessage({
-                        type: 'info',
-                        message: 'Delete canceled',
-                    })
+                    // ElMessage({
+                    //     type: 'info',
+                    //     message: 'Delete canceled',
+                    // })
                 })
         },
     },

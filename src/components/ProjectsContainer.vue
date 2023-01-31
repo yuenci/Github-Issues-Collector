@@ -4,7 +4,6 @@
             <img src="@sicons/ionicons5/AddCircleOutline.svg" class="add-icon"/>
         </div>
         <ProjectCard v-for="project in projectsObj"  :title="project.title" :key="project.index"/>
-
     </div>
     <el-dialog
     v-model="dialogVisible"
@@ -89,6 +88,14 @@ export default {
             })
         },
         addProject(project) {
+            if (this.projects.includes(project)) {
+                ElMessage({
+                    type: 'warning',
+                    message: 'Repo already exists',
+                })
+                return;
+            }
+
             this.projects.push(project);
             localStorage.setItem("projects", JSON.stringify(this.projects));
         }
