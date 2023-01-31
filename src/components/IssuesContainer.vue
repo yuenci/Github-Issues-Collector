@@ -1,23 +1,23 @@
 <template lang="">
     <div v-if="this.repo">
         <el-table :data="formatTableData" stripe style="width: 100%" v-loading="!issues" >
-            <el-table-column prop="date" label="Date" width="180" />
-            <el-table-column prop="name" label="Name" width="300" />
-            <el-table-column prop="address" label="Address" />
+            <el-table-column prop="date" label="Date" width="180" sortable :formatter="formatter" />
+            <el-table-column prop="name" label="Issue" width="300" />
+            <el-table-column prop="address" label="Details" />
         </el-table>
     </div>
     <div v-else>
-        <el-table :data="formatTableData" stripe style="width: 100%" v-loading="!issues" >
-            <el-table-column prop="date" label="Date" width="180" />
-            <el-table-column prop="repo" label="Repo" />
-            <el-table-column prop="name" label="Name" width="300" />
-            <el-table-column prop="address" label="Address" />
+        <el-table :data="formatTableData" stripe style="width: 100%" v-loading.fullscreen.lock="getAllIssuesLoading" >
+            <el-table-column prop="date" label="Date" width="180"  sortable  :formatter="formatter" />
+            <el-table-column prop="repo" label="Repo" :filters="repoFilter" :filter-method="filterHandler"/>
+            <el-table-column prop="name" label="Issue" width="300" />
+            <el-table-column prop="address" label="Details" />
         </el-table>
     </div>
 </template>
 <script>
 import ProjectCard from "./ProjectCard.vue";
-import { getIssuesFromGithub, getAllRepos } from "../tools.js";
+import { getIssuesFromGithub, getAllRepos, formatDate } from "../tools.js";
 
 
 
@@ -29,6 +29,8 @@ export default {
     data() {
         return {
             repo: "",
+            repos: [],
+            getAllIssuesLoading: true,
             issues: [],
         };
     },
@@ -46,6 +48,27 @@ export default {
             return formatTableData;
         },
 
+        repoFilter: function () {
+            let repoData = [];
+            for (let i = 0; i < this.issues.length; i++) {
+                let data = {
+                    text: this.issues[i].repo,
+                    value: this.issues[i].repo,
+                }
+                // check if repo is already in repoData
+                let repoExists = false;
+                for (let j = 0; j < repoData.length; j++) {
+                    if (repoData[j].value === data.value) {
+                        repoExists = true;
+                    }
+                }
+                if (!repoExists) {
+                    repoData.push(data);
+                }
+            }
+            return repoData;
+        }
+
 
     },
 
@@ -55,16 +78,17 @@ export default {
             //console.log(this.issues);
         },
         async getAllIssues() {
-            let repos = getAllRepos();
+            this.repos = getAllRepos();
             this.issues = [];
             // loop through repos and get issues, add results to this.issues
-            for (let i = 0; i < repos.length; i++) {
-                let issues = await getIssuesFromGithub(repos[i]);
+            for (let i = 0; i < this.repos.length; i++) {
+                let issues = await getIssuesFromGithub(this.repos[i]);
                 for (let j = 0; j < issues.length; j++) {
-                    issues[j].repo = repos[i];
+                    issues[j].repo = this.repos[i];
                 }
                 this.issues = this.issues.concat(issues);
             }
+            this.getAllIssuesLoading = false;
             //console.log(this.issues);
         },
         getRepoName() {
@@ -75,10 +99,16 @@ export default {
                 this.repo = null;
             }
         },
+        formatter(row) {
+            return formatDate(row.date);
+        },
+        filterHandler(value, row, column) {
+            const property = column['property']
+            return row[property] === value
+        }
     },
 
     mounted() {
-        console.log("IssuesContainer mounted");
         this.getRepoName();
         if (this.repo === null) {
             this.getAllIssues();

@@ -25,6 +25,10 @@ fine-grained personal access token
 
 只能访问特定储存库，而且可以设置权限，而且有到期日比较安全，但权限低
 
+### api
+
+https://docs.github.com/zh/rest/guides/getting-started-with-the-rest-api?apiVersion=2022-11-28
+
 ### token
 
 ```
@@ -157,5 +161,5 @@ $npm install vue-router@4
 
 * [ ] display body image
 * [ ] add comment
-* [ ] show loading
-* [ ] order the issues
+* [X] show loading
+* [X] order the issues
