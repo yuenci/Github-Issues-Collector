@@ -74,7 +74,7 @@ const issues = await octokit.paginate(octokit.rest.issues.listForRepo, {
 
 # UI
 
-### naive ui 
+### naive ui
 
 api 设计的有点烂
 
@@ -96,7 +96,6 @@ app.mount('#app');
 
 https://www.naiveui.com/zh-CN/os-theme/components/button
 
-
 ### element
 
 ```
@@ -117,9 +116,6 @@ const app = createApp(App)
 app.use(ElementPlus)
 app.mount('#app')
 ```
-
-
-
 
 ### icon
 
@@ -157,3 +153,9 @@ $npm i -D @sicons/ionicons5
 ```bash
 $npm install vue-router@4
 ```
+
+
+* [ ] display body image
+* [ ] add comment
+* [ ] show loading
+* [ ] order the issues

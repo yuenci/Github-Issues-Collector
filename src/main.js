@@ -14,8 +14,8 @@ const app = createApp(App)
 const routes = [
     { path: '/', component: ProjectsContainer },
     { path: '/repos', component: ProjectsContainer },
-    { path: '/issues/:repo', component: IssuesContainer },
     { path: '/issues', component: IssuesContainer },
+    { path: '/issues/:repo', component: IssuesContainer },
     { path: '/settings', component: SettingsContainer },
 ]
 

@@ -24,3 +24,23 @@ export function initGithub() {
         }
     });
 }
+
+
+export function getAllRepos() {
+    const projects = localStorage.getItem("projects");
+    if (projects) {
+        return JSON.parse(projects);
+    } else {
+        return [];
+    }
+}
+
+export async function getIssuesFromGithub(repo) {
+    const octokit = new Octokit({ auth: token });
+    let res = await octokit.paginate(octokit.rest.issues.listForRepo, {
+        owner: "yuenci",
+        repo: repo,
+        per_page: 100,
+    });
+    return res;
+}
