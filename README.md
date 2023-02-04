@@ -64,7 +64,6 @@ To use this project, follow these steps:
 
 ![](image/README/goToGithub.gif)
     
->>>>>>> 4d1e488619424753d08068a89881ba4889eecff7
 ## 📫 Contributing
 
 To contribute this project, follow these steps:
