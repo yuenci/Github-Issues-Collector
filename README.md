@@ -4,6 +4,8 @@
 
 I have a lot of projects in progress at the same time. Sometimes I want to know what issues are in the current projects. At this time, I had to open all the projects and look at them one by one. It is very inconvenient, so I wrote this application to put the The issues of the projects on Github can be viewed together, which is more convenient for me to manage all issues.
 
+## DEMO
+
 ## 💻 Prerequisites
 
 Before you begin, make sure that you have met the following requirements:
@@ -59,12 +61,19 @@ To use this project, follow these steps:
 #### 2. Add repo and view issues
 
 ![](image/README/addRepo.gif)
-    
+
 #### 3. Go to github for more operation
 
 ![](image/README/goToGithub.gif)
-    
+
 >>>>>>> 4d1e488619424753d08068a89881ba4889eecff7
+>>>>>>>
+>>>>>>
+>>>>>
+>>>>
+>>>
+>>
+
 ## 📫 Contributing
 
 To contribute this project, follow these steps:
