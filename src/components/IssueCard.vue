@@ -8,12 +8,9 @@
             <span>{{ dateTime }} </span>
             <span> by {{ issue.user.login }}</span>
         </div>
-        <el-popover placement="top-start" :width="50" trigger="hover" :content="tag">
-            <template #reference>
-                <div class="circle" :style="{ backgroundColor: color }" v-show="color !== ''"></div>
-            </template>
-        </el-popover>
-
+        <el-tooltip class="box-item" effect="dark" :content="tag" placement="top">
+            <div class="circle" :style="{ backgroundColor: color }" v-show="color !== ''"></div>
+        </el-tooltip>
     </div>
 </template>
 <script>
