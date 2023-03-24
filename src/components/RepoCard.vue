@@ -2,14 +2,14 @@
     <div id="repo-con">
         <ReposToolBar />
         <div class="repo-cards-con">
-            <RepoInfoCard v-for="repo in fileterRepos" :key="repo" :repoName="repo" />
+            <RepoInfoCard v-for="repo in filterReposData" :key="repo.name" :repoData="repo" />
         </div>
     </div>
 </template>
 <script>
 import ReposToolBar from './ReposToolBar.vue';
 import RepoInfoCard from './RepoInfoCard.vue';
-import { getAllRepos } from '../tools.js';
+import { getAllRepos, getRepoInfoFromGithub } from '../tools.js';
 import PubSub from 'pubsub-js';
 export default {
     components: {
@@ -18,30 +18,70 @@ export default {
     data() {
         return {
             repos: [],
-            fileterRepos: []
+            reposData: {},
+            filterReposData: {}
         }
     },
     created() {
         this.repos = getAllRepos();
-        this.fileterRepos = this.repos;
     },
     methods: {
         filterRepos(keyword) {
             //console.log(keyword);
+            if (keyword === '') {
+                this.filterReposData = this.reposData;
+                return;
+            }
             keyword = keyword.toLowerCase();
-            this.fileterRepos = this.repos.filter((repo) => {
-                return repo.toLowerCase().includes(keyword);
-            })
+            this.filterReposData = {};
+            for (let repo in this.reposData) {
+                // console.log(repo);
+                if (repo.toLowerCase().indexOf(keyword) !== -1) {
+                    this.filterReposData[repo] = this.reposData[repo];
+                }
+            }
+        },
+        filterLanguage(language) {
+            if (language === "all") {
+                this.filterReposData = this.reposData;
+                return;
+            }
+
+            // console.log(language);
+            language = language.toLowerCase();
+            this.filterReposData = {};
+            for (let repo in this.reposData) {
+                let repoLanguage = this.reposData[repo].language;
+                if (repoLanguage.toLowerCase() === language) {
+                    this.filterReposData[repo] = this.reposData[repo];
+                }
+            }
         }
     },
     mounted() {
         PubSub.subscribe('filterRepos', (msg, data) => {
-            //console.log(data.message)
             this.filterRepos(data.message);
         });
+        PubSub.subscribe('filterLanguage', (msg, data) => {
+            this.filterLanguage(data.message);
+        });
+
+        Promise.all(this.repos.map(repo => getRepoInfoFromGithub(repo)))
+            .then(results => {
+                for (let i = 0; i < results.length; i++) {
+                    const data = results[i].data;
+                    const repo = this.repos[i];
+                    this.reposData[repo] = data;
+                }
+                this.filterReposData = this.reposData;
+            })
+            .catch(error => {
+                console.error(error);
+            });
     },
     beforeDestroy() {
         PubSub.unsubscribe('filterRepos');
+        PubSub.unsubscribe('filterLanguage');
     }
 
 }

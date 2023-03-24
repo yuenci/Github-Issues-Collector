@@ -11,7 +11,7 @@
                 </el-select></el-col>
 
             <el-col :span="4">
-                <el-select v-model="languageValue" class="m-2" placeholder="Language">
+                <el-select v-model="languageValue" class="m-2" placeholder="Language" @change="languageChange">
                     <el-option v-for="item in language" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
             </el-col>
@@ -54,15 +54,10 @@ export default {
                 value: 'private',
                 label: 'Private'
             }],
-            language: [
-                {
-                    value: 'javascript',
-                    label: 'JavaScript'
-                }, {
-                    value: 'python',
-                    label: 'Python'
-                }
-            ],
+            language: [{
+                value: 'all',
+                label: 'All'
+            }],
             sort: [
                 {
                     value: 'name',
@@ -102,7 +97,30 @@ export default {
         },
         filterRepos() {
             PubSub.publish('filterRepos', { message: this.input });
-        }
+        },
+        addLanguages(language) {
+            //console.log(language);
+
+            if (this.language.find(item => item.value === language.toLowerCase())) {
+                return;
+            }
+
+            this.language.push({
+                value: language.toLowerCase(),
+                label: language
+            })
+        },
+        languageChange() {
+            PubSub.publish('filterLanguage', { message: this.languageValue });
+        },
+    }, mounted() {
+        PubSub.subscribe('addLanguages', (msg, data) => {
+            // console.log(data.message)
+            this.addLanguages(data.message);
+        });
+    },
+    beforeDestroy() {
+        PubSub.unsubscribe('addLanguages');
     }
 }
 </script>
