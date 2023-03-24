@@ -11,6 +11,7 @@ import ReposToolBar from './ReposToolBar.vue';
 import RepoInfoCard from './RepoInfoCard.vue';
 import { getAllRepos, getRepoInfoFromGithub } from '../tools.js';
 import PubSub from 'pubsub-js';
+import { filter } from 'lodash';
 export default {
     components: {
         ReposToolBar, RepoInfoCard
@@ -71,6 +72,26 @@ export default {
                     this.filterReposData[repo] = this.reposData[repo];
                 }
             }
+        },
+
+        filterType(type) {
+            if (type === "all") {
+                this.filterReposData = this.reposData;
+                return;
+            }
+            type = type.toLowerCase();
+            this.filterReposData = {};
+            //console.log(type);
+
+            for (let repo in this.reposData) {
+                let repoType = this.reposData[repo].private;
+                if (type === "private" && repoType === true) {
+                    this.filterReposData[repo] = this.reposData[repo];
+                }
+                if (type === "public" && repoType === false) {
+                    this.filterReposData[repo] = this.reposData[repo];
+                }
+            }
         }
     },
     mounted() {
@@ -79,6 +100,9 @@ export default {
         });
         PubSub.subscribe('filterLanguage', (msg, data) => {
             this.filterLanguage(data.message);
+        });
+        PubSub.subscribe('filterType', (msg, data) => {
+            this.filterType(data.message);
         });
 
         Promise.all(this.reposList.map(repo => getRepoInfoFromGithub(repo)))
@@ -97,6 +121,7 @@ export default {
     beforeDestroy() {
         PubSub.unsubscribe('filterRepos');
         PubSub.unsubscribe('filterLanguage');
+        PubSub.unsubscribe('filterType');
     }
 
 }

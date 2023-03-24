@@ -6,7 +6,7 @@
             </el-col>
 
             <el-col :span="3">
-                <el-select v-model="typeValue" class="m-2" placeholder="Type">
+                <el-select v-model="typeValue" class="m-2" placeholder="Type" @change="typeChange">
                     <el-option v-for="item in type" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select></el-col>
 
@@ -120,6 +120,9 @@ export default {
         },
         languageChange() {
             PubSub.publish('filterLanguage', { message: this.languageValue });
+        },
+        typeChange() {
+            PubSub.publish('filterType', { message: this.typeValue });
         },
     }, mounted() {
         PubSub.subscribe('addLanguages', (msg, data) => {
