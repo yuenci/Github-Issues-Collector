@@ -61,7 +61,7 @@ To use this project, follow these steps:
 
 #### 3. Go to github for more operation
 
-![1679681836204](image/README/goToGithub.gif)
+![1679681836204](image/README//goToRepo.gif)
 
 #### 4. Search and filter
 
