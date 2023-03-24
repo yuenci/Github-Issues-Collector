@@ -23,7 +23,9 @@
 import NameCard from './components/NameCard.vue'
 import RepoCard from './components/RepoCard.vue'
 import RepoDetailsCard from './components/RepoDetailsCard.vue'
-import { getUserInfo, getAllRepos, getRepoInfoFromGithub, getUserNameFromLocalStorage } from './tools.js'
+import { getUserInfo, getAllRepos, getRepoInfoFromGithub, getUserNameFromLocalStorage, tokenTest } from './tools.js'
+import { ElMessage } from "element-plus";
+
 export default {
   components: {
     NameCard,
@@ -59,11 +61,22 @@ export default {
       }
     },
     onPositiveClick() {
-      this.dialogVisible = false;
+
       if (this.token) {
-        localStorage.setItem('github_token', this.token);
-        // refresh the page
-        location.reload();
+        tokenTest(this.token).then(data => {
+          if (data) {
+            this.dialogVisible = false;
+            localStorage.setItem('github_token', this.token);
+            // refresh the page
+            location.reload();
+          }
+        }).catch(err => {
+          console.log(err);
+          ElMessage({
+            message: 'Warning, token is invalid!',
+            type: 'warning',
+          })
+        })
       }
     },
   },
