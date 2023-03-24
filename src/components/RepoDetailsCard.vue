@@ -31,6 +31,10 @@ export default {
     },
     computed: {
         currentRepoInfoLength() {
+            if (!this.currentRepoInfo) {
+                return 0;
+            }
+
             return Object.keys(this.currentRepoInfo).length;
         }
     },

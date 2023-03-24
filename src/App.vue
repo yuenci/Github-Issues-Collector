@@ -6,6 +6,17 @@
       <RepoDetailsCard class="repo-detail-card" :currentRepo="currentRepo" />
     </div>
   </div>
+  <el-dialog v-model="dialogVisible" title="Enter Access token">
+    <el-input v-model="token" placeholder="Please input github token" clearable />
+    <template #footer>
+      <span class=" dialog-footer">
+        <el-button @click="dialogVisible = false">Cancel</el-button>
+        <el-button type="primary" @click="onPositiveClick" color="#987cf7">
+          Confirm
+        </el-button>
+      </span>
+    </template>
+  </el-dialog>
 </template>
 
 <script>
@@ -25,7 +36,9 @@ export default {
       avatar_url: '',
       currentRepo: "",
       currentRepoInfo: {},
-      repos: []
+      repos: [],
+      dialogVisible: false,
+      token: '',
     }
   },
   methods: {
@@ -44,12 +57,25 @@ export default {
           this.avatar_url = data.avatar_url;
         });
       }
-    }
+    },
+    onPositiveClick() {
+      this.dialogVisible = false;
+      if (this.token) {
+        localStorage.setItem('github_token', this.token);
+        // refresh the page
+        location.reload();
+      }
+    },
   },
   created() {
-    this.initAvatarAndBadge();
-    this.updateAllRepos();
-    this.currentRepo = this.repos[0];
+    let token = localStorage.getItem('github_token');
+    if (!token) {
+      this.dialogVisible = true;
+    } else {
+      this.initAvatarAndBadge();
+      this.updateAllRepos();
+      this.currentRepo = this.repos[0];
+    }
   },
   mounted() {
     PubSub.subscribe('changeRepoDetails', (msg, data) => {
