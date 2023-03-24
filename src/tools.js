@@ -49,7 +49,7 @@ export function tokenTest(tokenInput) {
 export function getAllRepos() {
     const projects = localStorage.getItem("repos");
     if (projects) {
-        //console.log(projects);
+        console.log(projects);
         return JSON.parse(projects);
     } else {
         localStorage.setItem("projects", JSON.stringify([]));
@@ -75,10 +75,12 @@ export function ifGithubRepoURL(url) {
 }
 
 export async function getIssuesFromGithub(repo) {
+    if (!repo) return;
+    //console.log(repo);
     const token = getToken();
     const octokit = new Octokit({ auth: token });
     let res = await octokit.paginate(octokit.rest.issues.listForRepo, {
-        owner: "yuenci",
+        owner: getUserNameFromLocalStorage().userName,
         repo: repo,
         per_page: 100,
     });
@@ -89,7 +91,7 @@ export async function getRepoInfoFromGithub(repo) {
     const token = getToken();
     const octokit = new Octokit({ auth: token });
     let res = await octokit.rest.repos.get({
-        owner: "yuenci",
+        owner: getUserNameFromLocalStorage().userName,
         repo: repo,
     });
     return res;
@@ -121,14 +123,14 @@ export function writeToken(token) {
 }
 
 export function getToken() {
-    let tokenKey = token
-    return tokenKey;
-    // let token = localStorage.getItem("token");
-    // if (token) {
-    //     return token;
-    // } else {
-    //     ElMessage.info("Welcome back, please input your github token");
-    // }
+    // let tokenKey = token
+    // return tokenKey;
+    let token = localStorage.getItem("github_token");
+    if (token) {
+        return token;
+    } else {
+        return null;
+    }
 }
 
 
@@ -137,4 +139,39 @@ export async function getUserInfo(userName) {
     let data = await response.json();
     return data;
 
+}
+
+export function writeUserNameToLinkLocalStorage(url, fixed) {
+    if (!ifGithubRepoURL(url)) return;
+
+    let userName = url.split("/")[3];
+    let data = {
+        userName: userName,
+        fixed: fixed
+    }
+    localStorage.setItem("userName", JSON.stringify(data));
+}
+
+export function writeUserNameToLocalStorage(userName, fixed) {
+    let data = {
+        userName: userName,
+        fixed: fixed
+    }
+    localStorage.setItem("userName", JSON.stringify(data));
+}
+
+export function getUserNameFromLocalStorage() {
+    let userName = localStorage.getItem("userName");
+    if (userName) {
+        return JSON.parse(userName);
+    } else {
+        return null;
+    }
+}
+
+export function isWriteUserNameFromUrl() {
+    let data = getUserNameFromLocalStorage();
+    if (data === null) return true;
+    if (data.fixed === true) return false;
+    return true;
 }

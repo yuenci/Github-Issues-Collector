@@ -1,19 +1,58 @@
 <template lang="">
     <div id="name-con">
-        <!-- <img :src="userData.avatar_url" alt="Vue logo" class="avatar" /> -->
-        <img src="/Fintechtocat.png" alt="Vue logo" class="avatar" />
-        <div>
-            <img src="https://github-readme-stats.vercel.app/api?username=yuenci&show_icons=true&locale=en" class="stats">
+        <img :src="userData.avatar_url" alt="Vue logo" class="avatar" v-if="userData"   @click="show"/>
+        <img src="/Fintechtocat.png" alt="Vue logo" class="avatar" @click="show" v-else />
+        <div class="badge">
+            <img :src="statUrl" class="stats">
         </div>
-
     </div>
+     <el-dialog v-model="dialogVisible" title="Enter GitHub user name">
+        <el-input v-model="userName" placeholder="Please input your GitHub user name" clearable />
+        <template #footer>
+            <span class=" dialog-footer">
+                <el-button @click="dialogVisible = false">Cancel</el-button>
+                <el-button type="primary" @click="onPositiveClick" color="#987cf7">
+                    Confirm
+                </el-button>
+            </span>
+        </template>
+    </el-dialog>
 </template>
 
 
 <script>
+import { writeUserNameToLocalStorage, getUserNameFromLocalStorage } from '../tools.js'
 export default {
     props: {
         userData: Object
+    },
+    data() {
+        return {
+            dialogVisible: false,
+            userName: '',
+        }
+    },
+    computed: {
+        statUrl() {
+            let stat_url = `https://github-readme-stats.vercel.app/api?username=${this.userName}&show_icons=true&locale=en`;
+            return stat_url;
+        }
+    },
+    methods: {
+        show() {
+            this.dialogVisible = true;
+        },
+        onPositiveClick() {
+            this.dialogVisible = false;
+            writeUserNameToLocalStorage(this.userName, true)
+        }
+    },
+    mounted() {
+        let useNameData = getUserNameFromLocalStorage();
+        if (useNameData) {
+            this.userName = useNameData.userName;
+        }
+        //console.log(this.userData);
     }
 }
 </script>
@@ -38,6 +77,7 @@ export default {
     margin: 10px;
     border-radius: 50%;
     object-fit: cover;
+    cursor: pointer;
 }
 
 #name-con__right {
@@ -48,5 +88,9 @@ export default {
 .stats {
     height: 170px;
     margin: 10px;
+}
+
+.badge {
+    cursor: pointer;
 }
 </style>

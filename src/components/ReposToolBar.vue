@@ -2,7 +2,7 @@
     <div class="con">
         <el-row :gutter="5" class="row">
             <el-col :span="12">
-                <el-input v-model="input" placeholder="Please input" @input="filterRepos" />
+                <el-input v-model="input" placeholder="Find a repository..." @input="filterRepos" />
             </el-col>
 
             <el-col :span="3">
@@ -26,9 +26,9 @@
         </el-row>
     </div>
     <el-dialog v-model="dialogVisible" title="Enter project's link">
-        <el-input v-model="projectLink" placeholder="Please input" clearable />
+        <el-input v-model="projectLink" placeholder="Please input project's link" clearable />
         <template #footer>
-            <span class="dialog-footer">
+            <span class=" dialog-footer">
                 <el-button @click="dialogVisible = false">Cancel</el-button>
                 <el-button type="primary" @click="onPositiveClick" color="#987cf7">
                     Confirm
@@ -38,7 +38,7 @@
     </el-dialog>
 </template>
 <script>
-import { ifGithubRepoURL, addRepo } from '../tools.js'
+import { ifGithubRepoURL, addRepo, isWriteUserNameFromUrl, writeUserNameToLinkLocalStorage } from '../tools.js'
 import { ElMessage } from 'element-plus'
 export default {
     data() {
@@ -79,7 +79,14 @@ export default {
             this.dialogVisible = false;
             if (ifGithubRepoURL(this.projectLink)) {
                 addRepo(this.projectLink);
+
+                if (isWriteUserNameFromUrl()) {
+                    writeUserNameToLinkLocalStorage(this.projectLink, false);
+                }
+
                 this.projectLink = '';
+
+                // update repo cards display
                 PubSub.publish('updateAllRepos', { message: 'you message here' });
                 ElMessage({
                     message: 'Add repo successfully',
