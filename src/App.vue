@@ -1,10 +1,9 @@
 <template>
   <div id="app">
     <div id="app-con">
-
       <NameCard :userData=userData />
       <RepoCard />
-      <RepoDetailsCard class="repo-detail-card" />
+      <RepoDetailsCard class="repo-detail-card" :repoInfo="currentRepoInfo" />
     </div>
   </div>
 </template>
@@ -13,6 +12,7 @@
 import NameCard from './components/NameCard.vue'
 import RepoCard from './components/RepoCard.vue'
 import RepoDetailsCard from './components/RepoDetailsCard.vue'
+import { getIssuesFromGithub, getUserInfo } from './tools.js'
 export default {
   components: {
     NameCard,
@@ -25,16 +25,17 @@ export default {
       userData: {
         avatar_url: ''
       },
+      currentRepo: "Java-Car-Rental-System",
+      currentRepoInfo: {},
     }
   },
   created() {
-    // fetch https://api.github.com/users/yuenci
-    fetch('https://api.github.com/users/yuenci')
-      .then(response => response.json())
-      .then(data => {
-        console.log(data.avatar_url)
-        this.userData.avatar_url = data.avatar_url
-      })
+    let userInfo = getUserInfo("yuenci");
+    this.userData.avatar_url = userInfo.avatar_url;
+    getIssuesFromGithub(this.currentRepo).then((data) => {
+      console.log(data);
+      this.currentRepoInfo = data;
+    })
   }
 }
 </script>

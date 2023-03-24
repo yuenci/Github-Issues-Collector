@@ -1,5 +1,6 @@
 import { Octokit, App } from "https://cdn.skypack.dev/octokit";
 import { ElMessage } from "element-plus";
+import token from "./config";
 
 // valid github repo link, like https://github.com/yuenci/Java-Car-Rental-System
 export function validLink(link) {
@@ -48,6 +49,7 @@ export function getAllRepos() {
     if (projects) {
         return JSON.parse(projects);
     } else {
+        localStorage.setItem("projects", JSON.stringify([]));
         return [];
     }
 }
@@ -75,16 +77,34 @@ export function formatDate(isoString) {
     return res;
 };
 
+export function ISOToDate(isoString) {
+    const isoDate = isoString;
+    const date = new Date(isoDate);
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const dateString = date.toLocaleDateString('en-US', options);
+    return dateString;
+};
+
 
 export function writeToken(token) {
     localStorage.setItem("token", token);
 }
 
 export function getToken() {
-    let token = localStorage.getItem("token");
-    if (token) {
-        return token;
-    } else {
-        ElMessage.info("Welcome back, please input your github token");
-    }
+    let tokenKey = token
+    return tokenKey;
+    // let token = localStorage.getItem("token");
+    // if (token) {
+    //     return token;
+    // } else {
+    //     ElMessage.info("Welcome back, please input your github token");
+    // }
+}
+
+
+export async function getUserInfo(userName) {
+    let response = await fetch(`https://api.github.com/users/${userName}`);
+    let data = await response.json();
+    return data;
+
 }

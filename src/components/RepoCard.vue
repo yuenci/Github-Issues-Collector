@@ -1,10 +1,14 @@
 <template lang="">
     <div id="repo-con">
-        hello repo card
+        <ReposToolBar />
     </div>
 </template>
 <script>
+import ReposToolBar from './ReposToolBar.vue';
 export default {
+    components: {
+        ReposToolBar
+    },
 
 }
 </script>
@@ -12,12 +16,9 @@ export default {
 #repo-con {
     width: 700px;
     height: calc(100% - 240px);
-    background-color: white;
+    background-color: rgba(241, 243, 245, 0.6);
     border-radius: 10px;
 }
 </style>
 
-<style>
-
-
-</style>
+<style></style>

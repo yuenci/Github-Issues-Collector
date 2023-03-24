@@ -1,7 +1,7 @@
 <template lang="">
     <div id="name-con">
         <!-- <img :src="userData.avatar_url" alt="Vue logo" class="avatar" /> -->
-        <img src="public/Fintechtocat.png" alt="Vue logo" class="avatar" />
+        <img src="/Fintechtocat.png" alt="Vue logo" class="avatar" />
         <div>
             <img src="https://github-readme-stats.vercel.app/api?username=yuenci&show_icons=true&locale=en" class="stats">
         </div>
