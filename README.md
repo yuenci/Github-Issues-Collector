@@ -2,15 +2,13 @@
 
 # Github Issues Collector
 
-I have a lot of projects in progress at the same time. Sometimes I want to know what issues are in the current projects. At this time, I had to open all the projects and look at them one by one. It is very inconvenient, so I wrote this application to put the The issues of the projects on Github can be viewed together, which is more convenient for me to manage all issues.
+![1679681243863](image/README/1679681243863.png)
 
-## DEMO
+I have a lot of projects in progress at the same time. Sometimes I want to know what issues are in the current projects. At this time, I had to open all the projects and look at them one by one. It is very inconvenient, so I wrote this application to put the The issues of the projects on Github can be viewed together, which is more convenient for me to manage all issues.
 
 ## 💻 Prerequisites
 
 Before you begin, make sure that you have met the following requirements:
-
-<!---These are just example requirements. Add, duplicate or remove as needed--->
 
 * You have installed the latest version of nodejs
 * You have installed the latest version of Yarn
@@ -55,24 +53,19 @@ To use this project, follow these steps:
    ![1675147883613](image/README/1675147883613.png)
 
    1.5 Input token
-
-![](image/README/setToken.gif)
+   ![1679681815435](image/README/1679681815435.gif)
 
 #### 2. Add repo and view issues
 
-![](image/README/addRepo.gif)
+![1679681832535](image/README/1679681832535.gif)
 
 #### 3. Go to github for more operation
 
-![](image/README/goToGithub.gif)
+![1679681836204](image/README/1679681836204.gif)
 
->>>>>>> 4d1e488619424753d08068a89881ba4889eecff7
->>>>>>>
->>>>>>
->>>>>
->>>>
->>>
->>
+#### 4. Search and filter
+
+![1679681839866](image/README/1679681839866.gif)
 
 ## 📫 Contributing
 
@@ -92,7 +85,7 @@ Alternatively, see the GitHub documentation on how to [create a pull request](ht
   <img src="https://github.com/yuenci/Laptop-Repair-Services-Management-System/blob/master/image/avatar-innis.png" alt="profile image" width="60px">
 </a>
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+Innis - yuenci1575270674@gmail.com
 
 ## 😄 Be one of the contributors
 
