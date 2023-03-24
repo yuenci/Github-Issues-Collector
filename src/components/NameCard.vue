@@ -1,6 +1,6 @@
 <template lang="">
     <div id="name-con">
-        <img :src="userData.avatar_url" alt="Vue logo" class="avatar" v-if="userData"   @click="show"/>
+        <img :src="avatar_url" alt="Vue logo" class="avatar" v-if="avatar_url"   @click="show"/>
         <img src="/Fintechtocat.png" alt="Vue logo" class="avatar" @click="show" v-else />
         <div class="badge">
             <img :src="statUrl" class="stats">
@@ -24,7 +24,7 @@
 import { writeUserNameToLocalStorage, getUserNameFromLocalStorage } from '../tools.js'
 export default {
     props: {
-        userData: Object
+        avatar_url: String
     },
     data() {
         return {
@@ -52,7 +52,7 @@ export default {
         if (useNameData) {
             this.userName = useNameData.userName;
         }
-        //console.log(this.userData);
+        console.log(this.userData);
     }
 }
 </script>

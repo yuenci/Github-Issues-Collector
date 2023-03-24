@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="app-con">
-      <NameCard :userData=userData />
+      <NameCard :avatar_url=avatar_url />
       <RepoCard :reposList="repos" />
       <RepoDetailsCard class="repo-detail-card" :currentRepo="currentRepo" />
     </div>
@@ -12,7 +12,7 @@
 import NameCard from './components/NameCard.vue'
 import RepoCard from './components/RepoCard.vue'
 import RepoDetailsCard from './components/RepoDetailsCard.vue'
-import { getUserInfo, getAllRepos, getRepoInfoFromGithub } from './tools.js'
+import { getUserInfo, getAllRepos, getRepoInfoFromGithub, getUserNameFromLocalStorage } from './tools.js'
 export default {
   components: {
     NameCard,
@@ -22,9 +22,7 @@ export default {
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',
-      userData: {
-        avatar_url: ''
-      },
+      avatar_url: '',
       currentRepo: "",
       currentRepoInfo: {},
       repos: []
@@ -37,12 +35,20 @@ export default {
     makeCurrentRepoAsLatest() {
       let length = this.repos.length;
       this.currentRepo = this.repos[length - 1];
+    },
+    initAvatarAndBadge() {
+      let userNameData = getUserNameFromLocalStorage();
+      if (userNameData) {
+        getUserInfo(userNameData.userName).then(data => {
+          console.log(data);
+          this.avatar_url = data.avatar_url;
+        });
+      }
     }
   },
   created() {
-    let userInfo = getUserInfo("yuenci");
+    this.initAvatarAndBadge();
     this.updateAllRepos();
-    this.userData.avatar_url = userInfo.avatar_url;
     this.currentRepo = this.repos[0];
   },
   mounted() {
