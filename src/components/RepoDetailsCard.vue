@@ -43,7 +43,8 @@ export default {
             currentRepoInfo: {},
             loading: false
         }
-    }, mounted() {
+    },
+    mounted() {
         getIssuesFromGithub(this.currentRepo).then((data) => {
             // console.log(data);
             this.currentRepoInfo = data;
@@ -59,6 +60,7 @@ export default {
     color: white;
     border-radius: 10px;
     overflow-y: auto;
+    padding: 5px;
 }
 
 
@@ -67,7 +69,7 @@ export default {
 }
 
 #details-con::-webkit-scrollbar-track {
-    background: rgb(239, 239, 239);
+    background: rgb(239, 239, 239, 0.6);
     border-radius: 2px;
 }
 

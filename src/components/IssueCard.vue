@@ -60,7 +60,7 @@ export default {
 <style scoped>
 .con {
     width: 100%;
-    background-color: rgba(241, 243, 245, 0.6);
+    background-color: rgba(241, 243, 245, 0.7);
     color: black;
     border-radius: 10px;
     margin: 10px 0;
@@ -72,7 +72,7 @@ export default {
 
 .title {
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 500;
     margin-bottom: 10px;
 }
 
