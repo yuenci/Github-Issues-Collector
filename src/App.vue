@@ -1,9 +1,11 @@
 <template>
   <div id="app">
-    <img :src="avatar_url" alt="Vue logo" class="avatar" />
-    <NameCard />
-    <RepoCard />
-    <RepoDetailsCard />
+    <div id="app-con">
+
+      <NameCard :userData=userData />
+      <RepoCard />
+      <RepoDetailsCard class="repo-detail-card" />
+    </div>
   </div>
 </template>
 
@@ -20,7 +22,9 @@ export default {
   data() {
     return {
       msg: 'Welcome to Your Vue.js App',
-      avatar_url: ''
+      userData: {
+        avatar_url: ''
+      },
     }
   },
   created() {
@@ -29,7 +33,7 @@ export default {
       .then(response => response.json())
       .then(data => {
         console.log(data.avatar_url)
-        this.avatar_url = data.avatar_url
+        this.userData.avatar_url = data.avatar_url
       })
   }
 }
@@ -40,19 +44,25 @@ export default {
 <style scoped>
 #app {
   height: 80vh;
-  width: 1000px;
+  width: 1100px;
   margin: 0;
   padding: 0;
-  border: 3px solid white;
+  /* border: 3px solid white; */
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-.avatar {
-  width: 250px;
-  height: 250px;
-  border-radius: 50%;
+#app-con {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.repo-detail-card {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 </style>

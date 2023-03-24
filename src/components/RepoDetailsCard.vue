@@ -1,5 +1,5 @@
 <template lang="">
-    <div>
+    <div id="details-con">
         hello repo details card
     </div>
 </template>
@@ -8,6 +8,12 @@ export default {
 
 }
 </script>
-<style lang="">
-    
+<style scoped>
+#details-con {
+    height: 100%;
+    width: 350px;
+    background-color: white;
+    color: white;
+    border-radius: 10px;
+}
 </style>
