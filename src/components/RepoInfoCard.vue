@@ -107,4 +107,15 @@ export default {
     height: 15px;
     margin-right: 5px;
 }
+
+.repo-desc {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.repo-title {
+    font-weight: 600;
+}
 </style>
