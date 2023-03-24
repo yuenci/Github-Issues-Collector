@@ -44,14 +44,34 @@ export function tokenTest(tokenInput) {
 }
 
 
+
+
 export function getAllRepos() {
-    const projects = localStorage.getItem("projects");
+    const projects = localStorage.getItem("repos");
     if (projects) {
+        //console.log(projects);
         return JSON.parse(projects);
     } else {
         localStorage.setItem("projects", JSON.stringify([]));
         return [];
     }
+}
+
+export function addRepo(repolIink) {
+    let repoName = repolIink.split("/")[4];
+    const projects = getAllRepos();
+    // if already exist, return
+    if (projects.includes(repoName)) {
+        return;
+    }
+
+    projects.push(repoName);
+    localStorage.setItem("repos", JSON.stringify(projects));
+}
+
+export function ifGithubRepoURL(url) {
+    const reg = /https:\/\/github.com\/[a-zA-Z0-9_-]+\/[a-zA-Z0-9_-]+/;
+    return reg.test(url);
 }
 
 export async function getIssuesFromGithub(repo) {
@@ -61,6 +81,16 @@ export async function getIssuesFromGithub(repo) {
         owner: "yuenci",
         repo: repo,
         per_page: 100,
+    });
+    return res;
+}
+
+export async function getRepoInfoFromGithub(repo) {
+    const token = getToken();
+    const octokit = new Octokit({ auth: token });
+    let res = await octokit.rest.repos.get({
+        owner: "yuenci",
+        repo: repo,
     });
     return res;
 }

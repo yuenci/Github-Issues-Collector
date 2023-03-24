@@ -12,7 +12,7 @@
 import NameCard from './components/NameCard.vue'
 import RepoCard from './components/RepoCard.vue'
 import RepoDetailsCard from './components/RepoDetailsCard.vue'
-import { getIssuesFromGithub, getUserInfo } from './tools.js'
+import { getIssuesFromGithub, getUserInfo, getAllRepos, getRepoInfoFromGithub } from './tools.js'
 export default {
   components: {
     NameCard,
@@ -27,13 +27,16 @@ export default {
       },
       currentRepo: "Java-Car-Rental-System",
       currentRepoInfo: {},
+      ropes: []
     }
   },
   created() {
     let userInfo = getUserInfo("yuenci");
+    this.repos = getAllRepos();
+    this.currentRepo = this.repos[0];
     this.userData.avatar_url = userInfo.avatar_url;
     getIssuesFromGithub(this.currentRepo).then((data) => {
-      console.log(data);
+      // console.log(data);
       this.currentRepoInfo = data;
     })
   }

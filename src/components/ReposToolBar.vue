@@ -21,12 +21,25 @@
                 </el-select>
             </el-col>
             <el-col :span="2">
-                <el-button type="success" color="#987cf7" dark>New</el-button>
+                <el-button type="success" color="#987cf7" dark @click="showDialog">New</el-button>
             </el-col>
         </el-row>
     </div>
+    <el-dialog v-model="dialogVisible" title="Enter project's link">
+        <el-input v-model="projectLink" placeholder="Please input" clearable />
+        <template #footer>
+            <span class="dialog-footer">
+                <el-button @click="dialogVisible = false">Cancel</el-button>
+                <el-button type="primary" @click="onPositiveClick" color="#987cf7">
+                    Confirm
+                </el-button>
+            </span>
+        </template>
+    </el-dialog>
 </template>
 <script>
+import { ifGithubRepoURL, addRepo } from '../tools.js'
+import { ElMessage } from 'element-plus'
 export default {
     data() {
         return {
@@ -61,7 +74,31 @@ export default {
             ],
             typeValue: '',
             languageValue: '',
-            sortValue: ''
+            sortValue: '',
+            dialogVisible: false,
+            projectLink: '',
+        }
+    },
+    methods: {
+        onPositiveClick() {
+            this.dialogVisible = false;
+            if (ifGithubRepoURL(this.projectLink)) {
+                addRepo(this.projectLink);
+                this.projectLink = '';
+                ElMessage({
+                    message: 'Add repo successfully',
+                    type: 'success',
+                })
+            } else {
+                ElMessage({
+                    message: 'Please enter a valid github repo link',
+                    type: 'warning',
+                })
+            }
+
+        },
+        showDialog() {
+            this.dialogVisible = true;
         }
     }
 }
