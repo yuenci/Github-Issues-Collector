@@ -1,5 +1,3 @@
-<!-- 0130-Github-Issues-Collector -->
-
 `<a name="readme-top"></a>`
 
 # Github Issues Collector
@@ -11,8 +9,6 @@ I have a lot of projects in progress at the same time. Sometimes I want to know 
 ## 💻 Prerequisites
 
 Before you begin, make sure that you have met the following requirements:
-
-<!---These are just example requirements. Add, duplicate or remove as needed--->
 
 * You have installed the latest version of nodejs
 * You have installed the latest version of Yarn
@@ -57,10 +53,19 @@ To use this project, follow these steps:
    ![1675147883613](image/README/1675147883613.png)
 
    1.5 Input token
+   ![1679681815435](image/README/1679681815435.gif)
 
 #### 2. Add repo and view issues
 
+![1679681832535](image/README/1679681832535.gif)
+
 #### 3. Go to github for more operation
+
+![1679681836204](image/README/1679681836204.gif)
+
+#### 4. Search and filter
+
+![1679681839866](image/README/1679681839866.gif)
 
 ## 📫 Contributing
 
