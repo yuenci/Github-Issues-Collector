@@ -92,6 +92,44 @@ export default {
                     this.filterReposData[repo] = this.reposData[repo];
                 }
             }
+        },
+        sortByName() {
+            let reposData = this.reposData;
+            let reposDataArray = [];
+            for (let repo in reposData) {
+                reposDataArray.push(reposData[repo]);
+            }
+            reposDataArray.sort((a, b) => {
+                return a.name.localeCompare(b.name);
+            });
+            this.reposData = {};
+            for (let i = 0; i < reposDataArray.length; i++) {
+                this.reposData[reposDataArray[i].name] = reposDataArray[i];
+            }
+            this.filterReposData = this.reposData;
+        },
+        sortByStars() {
+            let reposData = this.reposData;
+            let reposDataArray = [];
+            for (let repo in reposData) {
+                reposDataArray.push(reposData[repo]);
+            }
+            reposDataArray.sort((a, b) => {
+                return b.stargazers_count - a.stargazers_count;
+            });
+            this.reposData = {};
+            for (let i = 0; i < reposDataArray.length; i++) {
+                this.reposData[reposDataArray[i].name] = reposDataArray[i];
+            }
+            this.filterReposData = this.reposData;
+        },
+        filterSort(type) {
+            if (type === "name") {
+                this.sortByName();
+
+            } else if (type === "stars") {
+                this.sortByStars();
+            }
         }
     },
     mounted() {
@@ -103,6 +141,9 @@ export default {
         });
         PubSub.subscribe('filterType', (msg, data) => {
             this.filterType(data.message);
+        });
+        PubSub.subscribe('filterSort', (msg, data) => {
+            this.filterSort(data.message);
         });
 
         Promise.all(this.reposList.map(repo => getRepoInfoFromGithub(repo)))

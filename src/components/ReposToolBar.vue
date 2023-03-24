@@ -16,7 +16,7 @@
                 </el-select>
             </el-col>
             <el-col :span="3">
-                <el-select v-model="sortValue" class="m-2" placeholder="Sort">
+                <el-select v-model="sortValue" class="m-2" placeholder="Sort" @change="sortChange">
                     <el-option v-for="item in sort" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
             </el-col>
@@ -124,6 +124,9 @@ export default {
         typeChange() {
             PubSub.publish('filterType', { message: this.typeValue });
         },
+        sortChange() {
+            PubSub.publish('filterSort', { message: this.sortValue });
+        }
     }, mounted() {
         PubSub.subscribe('addLanguages', (msg, data) => {
             // console.log(data.message)
