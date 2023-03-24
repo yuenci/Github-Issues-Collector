@@ -1,7 +1,10 @@
 <!-- 0130-Github-Issues-Collector -->
-<a name="readme-top"></a>
+
+`<a name="readme-top"></a>`
 
 # Github Issues Collector
+
+![1679681243863](image/README/1679681243863.png)
 
 I have a lot of projects in progress at the same time. Sometimes I want to know what issues are in the current projects. At this time, I had to open all the projects and look at them one by one. It is very inconvenient, so I wrote this application to put the The issues of the projects on Github can be viewed together, which is more convenient for me to manage all issues.
 
@@ -55,16 +58,10 @@ To use this project, follow these steps:
 
    1.5 Input token
 
-![](image/README/setToken.gif)
-
 #### 2. Add repo and view issues
 
-![](image/README/addRepo.gif)
-    
 #### 3. Go to github for more operation
 
-![](image/README/goToGithub.gif)
-    
 ## 📫 Contributing
 
 To contribute this project, follow these steps:
