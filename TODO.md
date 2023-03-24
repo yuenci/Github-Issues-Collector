@@ -6,5 +6,5 @@
 * [X] desc to long, must cut  to two line
 * [X] can't add same repo
 * [X] set token
-* [ ] click budge then go to github profile
-* [ ] show issus type using color
+* [X] click budge then go to github profile
+* [X] show issus type using color

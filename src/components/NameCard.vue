@@ -55,7 +55,7 @@ export default {
         if (useNameData) {
             this.userName = useNameData.userName;
         }
-        console.log(this.userData);
+        //console.log(this.userData);
     }
 }
 </script>

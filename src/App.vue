@@ -55,7 +55,7 @@ export default {
       let userNameData = getUserNameFromLocalStorage();
       if (userNameData) {
         getUserInfo(userNameData.userName).then(data => {
-          console.log(data);
+          //console.log(data);
           this.avatar_url = data.avatar_url;
         });
       }

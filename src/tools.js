@@ -49,7 +49,7 @@ export function tokenTest(tokenInput) {
 export function getAllRepos() {
     const projects = localStorage.getItem("repos");
     if (projects) {
-        console.log(projects);
+        //console.log(projects);
         return JSON.parse(projects);
     } else {
         localStorage.setItem("projects", JSON.stringify([]));
@@ -174,4 +174,9 @@ export function isWriteUserNameFromUrl() {
     if (data === null) return true;
     if (data.fixed === true) return false;
     return true;
+}
+
+
+export function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }

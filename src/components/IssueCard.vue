@@ -8,10 +8,17 @@
             <span>{{ dateTime }} </span>
             <span> by {{ issue.user.login }}</span>
         </div>
+        <el-popover placement="top-start" :width="50" trigger="hover" :content="tag">
+            <template #reference>
+                <div class="circle" :style="{ backgroundColor: color }" v-show="color !== ''"></div>
+            </template>
+        </el-popover>
+
     </div>
 </template>
 <script>
-import { ISOToDate } from '../tools.js'
+import { ISOToDate, capitalizeFirstLetter } from '../tools.js'
+import data from "../assets/issue_color.json"
 export default {
     props: {
         issue: {
@@ -21,7 +28,9 @@ export default {
     },
     data() {
         return {
-            html_url: this.issue.html_url
+            html_url: this.issue.html_url,
+            color: "",
+            tag: ""
         }
     },
     computed: {
@@ -34,6 +43,17 @@ export default {
             window.open(this.html_url, '_blank');
         }
 
+    },
+    mounted() {
+        let array = this.issue.labels;
+        if (array.length > 0) {
+            let label = array[0].name;
+            this.tag = capitalizeFirstLetter(label);
+            this.color = data[label];
+        }
+        else {
+            this.color = "";
+        }
     }
 }
 </script>
@@ -47,11 +67,22 @@ export default {
     padding: 10px;
     cursor: pointer;
     box-sizing: border-box;
+    position: relative;
 }
 
 .title {
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 10px;
+}
+
+.circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    z-index: 999;
 }
 </style>
