@@ -1,5 +1,6 @@
 <template lang="">
     <div id="details-con"  v-loading="loading">
+        <img src="/empty1.png" alt="empty icon" v-show="currentRepoInfoLength === 0" class="empty-icon">
          <IssueCard  v-for="issue in currentRepoInfo" :key="issue.id" :issue="issue" />
     </div>
 </template>
@@ -26,6 +27,11 @@ export default {
                 this.currentRepoInfo = data;
                 this.loading = false;
             })
+        }
+    },
+    computed: {
+        currentRepoInfoLength() {
+            return Object.keys(this.currentRepoInfo).length;
         }
     },
     data() {
@@ -68,5 +74,13 @@ export default {
 
 #details-con::-webkit-scrollbar-thumb:hover {
     background: #987CF7;
+}
+
+.empty-icon {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    display: block;
+    margin-top: 200px;
 }
 </style>
