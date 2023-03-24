@@ -3,7 +3,7 @@
     <div id="app-con">
       <NameCard :userData=userData />
       <RepoCard />
-      <RepoDetailsCard class="repo-detail-card" :repoInfo="currentRepoInfo" />
+      <RepoDetailsCard class="repo-detail-card" :currentRepo="currentRepo" />
     </div>
   </div>
 </template>
@@ -12,7 +12,7 @@
 import NameCard from './components/NameCard.vue'
 import RepoCard from './components/RepoCard.vue'
 import RepoDetailsCard from './components/RepoDetailsCard.vue'
-import { getIssuesFromGithub, getUserInfo, getAllRepos, getRepoInfoFromGithub } from './tools.js'
+import { getUserInfo, getAllRepos, getRepoInfoFromGithub } from './tools.js'
 export default {
   components: {
     NameCard,
@@ -25,7 +25,7 @@ export default {
       userData: {
         avatar_url: ''
       },
-      currentRepo: "Java-Car-Rental-System",
+      currentRepo: "",
       currentRepoInfo: {},
       ropes: []
     }
@@ -33,12 +33,18 @@ export default {
   created() {
     let userInfo = getUserInfo("yuenci");
     this.repos = getAllRepos();
-    this.currentRepo = this.repos[0];
     this.userData.avatar_url = userInfo.avatar_url;
-    getIssuesFromGithub(this.currentRepo).then((data) => {
-      // console.log(data);
-      this.currentRepoInfo = data;
-    })
+    this.currentRepo = this.repos[0];
+  },
+  mounted() {
+    PubSub.subscribe('changeRepoDetails', (msg, data) => {
+      console.log(data.message)
+      this.currentRepo = data.message;
+    });
+
+  },
+  beforeDestroy() {
+    PubSub.unsubscribe('changeRepoDetails');
   }
 }
 </script>

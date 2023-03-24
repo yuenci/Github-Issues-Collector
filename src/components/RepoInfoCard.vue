@@ -1,5 +1,5 @@
 <template>
-    <div class="con" @click="openRepo">
+    <div class="con" @click="changeCurrentRepo">
         <div class="repo-title">{{ repoData.name }}</div>
         <div class="repo-desc">{{ repoData.description }}</div>
         <div class="data">
@@ -40,6 +40,10 @@ export default {
     methods: {
         openRepo() {
             window.open(this.html_url, '_blank');
+        },
+        changeCurrentRepo() {
+            let repo = this.repoData.name;
+            PubSub.publish('changeRepoDetails', { message: repo });
         }
     },
     created() {

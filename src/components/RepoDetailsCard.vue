@@ -1,19 +1,43 @@
 <template lang="">
-    <div id="details-con">
-         <IssueCard  v-for="issue in repoInfo" :key="issue.id" :issue="issue" />
+    <div id="details-con"  v-loading="loading">
+         <IssueCard  v-for="issue in currentRepoInfo" :key="issue.id" :issue="issue" />
     </div>
 </template>
 <script>
 import IssueCard from './IssueCard.vue'
+import { getIssuesFromGithub } from '../tools.js'
+
 export default {
     components: {
         IssueCard
     },
     props: {
-        repoInfo: {
-            type: Object,
+        currentRepo: {
+            type: String,
             required: true
         }
+    },
+    watch: {
+        currentRepo() {
+            this.loading = true;
+            console.log("currentRepo changed");
+            getIssuesFromGithub(this.currentRepo).then((data) => {
+                // console.log(data);
+                this.currentRepoInfo = data;
+                this.loading = false;
+            })
+        }
+    },
+    data() {
+        return {
+            currentRepoInfo: {},
+            loading: false
+        }
+    }, mounted() {
+        getIssuesFromGithub(this.currentRepo).then((data) => {
+            // console.log(data);
+            this.currentRepoInfo = data;
+        })
     },
 }
 </script>
