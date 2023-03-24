@@ -3,7 +3,7 @@
         <img :src="avatar_url" alt="Vue logo" class="avatar" v-if="avatar_url"   @click="show"/>
         <img src="/Fintechtocat.png" alt="Vue logo" class="avatar" @click="show" v-else />
         <div class="badge">
-            <img :src="statUrl" class="stats" @click="goToGithubProfile">
+            <img :src="statUrl" class="stats" @click="goToGithubProfile" v-show="userName!==''">
         </div>
     </div>
      <el-dialog v-model="dialogVisible" title="Enter GitHub user name">
