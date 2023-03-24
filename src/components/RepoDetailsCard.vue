@@ -20,7 +20,7 @@ export default {
     watch: {
         currentRepo() {
             this.loading = true;
-            console.log("currentRepo changed");
+            //console.log("currentRepo changed");
             getIssuesFromGithub(this.currentRepo).then((data) => {
                 // console.log(data);
                 this.currentRepoInfo = data;

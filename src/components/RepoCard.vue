@@ -15,15 +15,30 @@ export default {
     components: {
         ReposToolBar, RepoInfoCard
     },
+    props: {
+        reposList: {
+            type: Object,
+            required: true
+        }
+    },
     data() {
         return {
-            repos: [],
             reposData: {},
             filterReposData: {}
         }
     },
-    created() {
-        this.repos = getAllRepos();
+    watch: {
+        reposList() {
+            let newRepo = this.reposList[this.reposList.length - 1];
+            getRepoInfoFromGithub(newRepo)
+                .then(result => {
+                    this.reposData[newRepo] = result.data;
+                    this.filterReposData = this.reposData;
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
     },
     methods: {
         filterRepos(keyword) {
@@ -66,11 +81,11 @@ export default {
             this.filterLanguage(data.message);
         });
 
-        Promise.all(this.repos.map(repo => getRepoInfoFromGithub(repo)))
+        Promise.all(this.reposList.map(repo => getRepoInfoFromGithub(repo)))
             .then(results => {
                 for (let i = 0; i < results.length; i++) {
                     const data = results[i].data;
-                    const repo = this.repos[i];
+                    const repo = this.reposList[i];
                     this.reposData[repo] = data;
                 }
                 this.filterReposData = this.reposData;

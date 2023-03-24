@@ -2,7 +2,7 @@
   <div id="app">
     <div id="app-con">
       <NameCard :userData=userData />
-      <RepoCard />
+      <RepoCard :reposList="repos" />
       <RepoDetailsCard class="repo-detail-card" :currentRepo="currentRepo" />
     </div>
   </div>
@@ -27,24 +27,37 @@ export default {
       },
       currentRepo: "",
       currentRepoInfo: {},
-      ropes: []
+      repos: []
+    }
+  },
+  methods: {
+    updateAllRepos() {
+      this.repos = getAllRepos();
+    },
+    makeCurrentRepoAsLatest() {
+      let length = this.repos.length;
+      this.currentRepo = this.repos[length - 1];
     }
   },
   created() {
     let userInfo = getUserInfo("yuenci");
-    this.repos = getAllRepos();
+    this.updateAllRepos();
     this.userData.avatar_url = userInfo.avatar_url;
     this.currentRepo = this.repos[0];
   },
   mounted() {
     PubSub.subscribe('changeRepoDetails', (msg, data) => {
-      console.log(data.message)
+      //console.log(data.message)
       this.currentRepo = data.message;
     });
-
+    PubSub.subscribe('updateAllRepos', (msg, data) => {
+      this.updateAllRepos();
+      this.makeCurrentRepoAsLatest();
+    });
   },
   beforeDestroy() {
     PubSub.unsubscribe('changeRepoDetails');
+    PubSub.unsubscribe('updateAllRepos');
   }
 }
 </script>

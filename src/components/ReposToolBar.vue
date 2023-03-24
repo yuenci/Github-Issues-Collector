@@ -80,6 +80,7 @@ export default {
             if (ifGithubRepoURL(this.projectLink)) {
                 addRepo(this.projectLink);
                 this.projectLink = '';
+                PubSub.publish('updateAllRepos', { message: 'you message here' });
                 ElMessage({
                     message: 'Add repo successfully',
                     type: 'success',
