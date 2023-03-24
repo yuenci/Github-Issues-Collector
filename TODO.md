@@ -1,5 +1,5 @@
-* [ ] type filter
-* [ ] sort
+* [X] type filter
+* [X] sort
 * [X] set and keep user name, avatar and personal info should use name
 * [X] repo container overflow
 * [X] no issus them use skeleton

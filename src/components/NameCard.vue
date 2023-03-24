@@ -3,7 +3,7 @@
         <img :src="avatar_url" alt="Vue logo" class="avatar" v-if="avatar_url"   @click="show"/>
         <img src="/Fintechtocat.png" alt="Vue logo" class="avatar" @click="show" v-else />
         <div class="badge">
-            <img :src="statUrl" class="stats">
+            <img :src="statUrl" class="stats" @click="goToGithubProfile">
         </div>
     </div>
      <el-dialog v-model="dialogVisible" title="Enter GitHub user name">
@@ -45,6 +45,9 @@ export default {
         onPositiveClick() {
             this.dialogVisible = false;
             writeUserNameToLocalStorage(this.userName, true)
+        },
+        goToGithubProfile() {
+            window.open(`https://github.com/${this.userName}`, '_blank');
         }
     },
     mounted() {
