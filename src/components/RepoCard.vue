@@ -116,6 +116,26 @@ export default {
     /* justify-content: space-around; */
     align-items: flex-start;
     align-content: flex-start;
+    height: 460px;
+    overflow-y: auto;
+}
+
+.repo-cards-con::-webkit-scrollbar {
+    width: 4px;
+}
+
+.repo-cards-con::-webkit-scrollbar-track {
+    background: rgb(239, 239, 239);
+    border-radius: 2px;
+}
+
+.repo-cards-con::-webkit-scrollbar-thumb {
+    background: #583FAE;
+    border-radius: 10px;
+}
+
+.repo-cards-con::-webkit-scrollbar-thumb:hover {
+    background: #987CF7;
 }
 </style>
 
