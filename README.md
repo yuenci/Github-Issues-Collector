@@ -53,19 +53,19 @@ To use this project, follow these steps:
    ![1675147883613](image/README/1675147883613.png)
 
    1.5 Input token
-   ![1679681815435](image/README/1679681815435.gif)
+   ![1679681815435](image/README/addToken.gif)
 
 #### 2. Add repo and view issues
 
-![1679681832535](image/README/1679681832535.gif)
+![1679681832535](image/README/addRepo1.gif)
 
 #### 3. Go to github for more operation
 
-![1679681836204](image/README/1679681836204.gif)
+![1679681836204](image/README/goToGithub.gif)
 
 #### 4. Search and filter
 
-![1679681839866](image/README/1679681839866.gif)
+![1679681839866](image/README/management.gif)
 
 ## 📫 Contributing
 
