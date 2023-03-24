@@ -1,6 +1,6 @@
 import { Octokit, App } from "https://cdn.skypack.dev/octokit";
 import { ElMessage } from "element-plus";
-import token from "./config";
+// import token from "./config";
 
 // valid github repo link, like https://github.com/yuenci/Java-Car-Rental-System
 export function validLink(link) {
