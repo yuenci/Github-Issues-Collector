@@ -29,7 +29,7 @@ export default {
 
 
 #details-con::-webkit-scrollbar {
-    width: 6px;
+    width: 4px;
 }
 
 #details-con::-webkit-scrollbar-track {

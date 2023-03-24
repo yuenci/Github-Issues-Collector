@@ -2,7 +2,7 @@
     <div class="con">
         <el-row :gutter="5" class="row">
             <el-col :span="12">
-                <el-input v-model="input" placeholder="Please input" />
+                <el-input v-model="input" placeholder="Please input" @input="filterRepos" />
             </el-col>
 
             <el-col :span="3">
@@ -99,6 +99,9 @@ export default {
         },
         showDialog() {
             this.dialogVisible = true;
+        },
+        filterRepos() {
+            PubSub.publish('filterRepos', { message: this.input });
         }
     }
 }

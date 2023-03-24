@@ -2,7 +2,7 @@
     <div id="repo-con">
         <ReposToolBar />
         <div class="repo-cards-con">
-            <RepoInfoCard v-for="(repo, index) in repos" :key="index" :repoName="repo" />
+            <RepoInfoCard v-for="repo in fileterRepos" :key="repo" :repoName="repo" />
         </div>
     </div>
 </template>
@@ -10,17 +10,38 @@
 import ReposToolBar from './ReposToolBar.vue';
 import RepoInfoCard from './RepoInfoCard.vue';
 import { getAllRepos } from '../tools.js';
+import PubSub from 'pubsub-js';
 export default {
     components: {
         ReposToolBar, RepoInfoCard
     },
     data() {
         return {
-            repos: []
+            repos: [],
+            fileterRepos: []
         }
     },
     created() {
         this.repos = getAllRepos();
+        this.fileterRepos = this.repos;
+    },
+    methods: {
+        filterRepos(keyword) {
+            //console.log(keyword);
+            keyword = keyword.toLowerCase();
+            this.fileterRepos = this.repos.filter((repo) => {
+                return repo.toLowerCase().includes(keyword);
+            })
+        }
+    },
+    mounted() {
+        PubSub.subscribe('filterRepos', (msg, data) => {
+            //console.log(data.message)
+            this.filterRepos(data.message);
+        });
+    },
+    beforeDestroy() {
+        PubSub.unsubscribe('filterRepos');
     }
 
 }
@@ -37,7 +58,7 @@ export default {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    /* justify-content: space-around; */
     align-items: flex-start;
     align-content: flex-start;
 }

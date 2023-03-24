@@ -43,7 +43,7 @@ export default {
     },
     created() {
         getRepoInfoFromGithub(this.repoName).then((data) => {
-            console.log(data);
+            //console.log(data);
             this.repoInfo = data;
             this.color = colors[this.repoInfo.data.language].color
             this.html_url = this.repoInfo.data.html_url
@@ -61,8 +61,8 @@ export default {
     position: relative;
     box-sizing: border-box;
     padding: 5px 10px;
-    margin-top: 10px;
     cursor: pointer;
+    margin: 7px 11px;
 }
 
 .data {
